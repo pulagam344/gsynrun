@@ -1,0 +1,82 @@
+#!/bin/bash
+
+sudo apt-get update
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt-get install -y nodejs
+node -v
+sudo npm install -g yarn
+yarn -v
+
+# Part 1
+git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_59
+cd /root/my_rl_swarm_59
+rm -f run_rl_swarm.sh && wget -O run_rl_swarm.sh https://raw.githubusercontent.com/pulagam344/swarm/main/run_rl_swarm.sh && chmod +x run_rl_swarm.sh
+wget -O modal-login/temp-data/userData.json https://raw.githubusercontent.com/pulagam344/gsyn/main/59/userData.json
+wget -O modal-login/temp-data/userApiKey.json https://raw.githubusercontent.com/pulagam344/gsyn/main/59/userApiKey.json
+wget -O swarm.pem https://raw.githubusercontent.com/pulagam344/gsyn/main/59/swarm.pem
+wget -O hivemind_exp/configs/gpu/grpo-qwen-2.5-0.5b-deepseek-r1.yaml https://raw.githubusercontent.com/pulagam344/genconnfig/main/grpo-qwen-2.5-0.5b-deepseek-r1.yaml
+wget -O requirements-gpu.txt https://raw.githubusercontent.com/pulagam344/req/main/requirements-gpu.txt
+sed -i 's|3000|3001|' hivemind_exp/chain_utils.py
+
+# Part 2
+git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_60
+cd /root/my_rl_swarm_60
+rm -f run_rl_swarm.sh && wget -O run_rl_swarm.sh https://raw.githubusercontent.com/pulagam344/swarm/main/run_rl_swarm2.sh && chmod +x run_rl_swarm.sh
+wget -O modal-login/temp-data/userData.json https://raw.githubusercontent.com/pulagam344/gsyn/main/60/userData.json
+wget -O modal-login/temp-data/userApiKey.json https://raw.githubusercontent.com/pulagam344/gsyn/main/60/userApiKey.json
+wget -O swarm.pem https://raw.githubusercontent.com/pulagam344/gsyn/main/60/swarm.pem
+wget -O hivemind_exp/configs/gpu/grpo-qwen-2.5-0.5b-deepseek-r1.yaml https://raw.githubusercontent.com/pulagam344/genconnfig/main/grpo-qwen-2.5-0.5b-deepseek-r1.yaml
+wget -O requirements-gpu.txt https://raw.githubusercontent.com/pulagam344/req/main/requirements-gpu.txt
+sed -i 's|3000|3002|' hivemind_exp/chain_utils.py
+
+git config --global credential.helper store
+export PYTORCH_CUDA_ALLOC_CONF='expandable_segments:True'
+
+
+# Function to run a swarm with logging
+run_swarm() {
+  local dir=$1
+  local cuda_device=$2
+  local swarm_name=$3
+  export CUDA_VISIBLE_DEVICES=$cuda_device
+  (
+    cd "$dir" && ./run_rl_swarm.sh 2>&1 |
+    while IFS= read -r line; do
+      echo "[$(date +%H:%M:%S)]-[$swarm_name] $line"
+    done
+  )
+}
+
+# Function to monitor and restart swarms
+monitor_swarms() {
+  while true; do
+    # Check swarm_59
+    if [ ! -d "/root/my_rl_swarm_59/runs/gsm8k/multinode" ]; then
+      echo "[$(date +%H:%M:%S)]-[monitor] Swarm_59 stopped, restarting..."
+      run_swarm "/root/my_rl_swarm_59" 0 "swarm_59" &
+    fi
+
+    # Check swarm_60
+    if [ ! -d "/root/my_rl_swarm_60/runs/gsm8k/multinode" ]; then
+      echo "[$(date +%H:%M:%S)]-[monitor] Swarm_60 stopped, restarting..."
+      run_swarm "/root/my_rl_swarm_60" 1 "swarm_60" &
+    fi
+
+    # Wait before next check (e.g., every 15 minutes)
+    sleep 900
+  done
+}
+
+# Start both swarms
+export CUDA_VISIBLE_DEVICES=0
+run_swarm "/root/my_rl_swarm_59" 0 "swarm_59" &
+sleep 60
+export CUDA_VISIBLE_DEVICES=1
+run_swarm "/root/my_rl_swarm_60" 1 "swarm_60" &
+
+# Start monitoring after 15 minutes
+sleep 900
+monitor_swarms &
+
+# Wait for all background processes to complete
+wait
