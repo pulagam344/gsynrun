@@ -70,7 +70,7 @@ monitor_swarms() {
 # Start both swarms
 export CUDA_VISIBLE_DEVICES=0
 run_swarm "/root/my_rl_swarm_5" 0 "swarm_5" &
-sleep 60
+sleep 600
 export CUDA_VISIBLE_DEVICES=1
 run_swarm "/root/my_rl_swarm_6" 1 "swarm_6" &
 
