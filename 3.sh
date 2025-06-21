@@ -13,7 +13,7 @@ cd /root/my_rl_swarm_5
 rm -f run_rl_swarm.sh && wget -O run_rl_swarm.sh https://raw.githubusercontent.com/pulagam344/swarm/main/run_rl_swarm.sh && chmod +x run_rl_swarm.sh
 wget -O modal-login/temp-data/userData.json https://raw.githubusercontent.com/pulagam344/gsyn/main/5/userData.json
 wget -O modal-login/temp-data/userApiKey.json https://raw.githubusercontent.com/pulagam344/gsyn/main/5/userApiKey.json
-#wget -O swarm.pem https://raw.githubusercontent.com/pulagam344/gsyn/main/5/swarm.pem
+wget -O swarm.pem https://raw.githubusercontent.com/pulagam344/gsyn/main/5/swarm.pem
 wget -O hivemind_exp/configs/gpu/grpo-qwen-2.5-0.5b-deepseek-r1.yaml https://raw.githubusercontent.com/pulagam344/genconnfig/main/grpo-qwen-2.5-0.5b-deepseek-r1.yaml
 wget -O requirements-gpu.txt https://raw.githubusercontent.com/pulagam344/req/main/requirements-gpu.txt
 sed -i 's|3000|3001|' hivemind_exp/chain_utils.py
@@ -24,7 +24,7 @@ cd /root/my_rl_swarm_6
 rm -f run_rl_swarm.sh && wget -O run_rl_swarm.sh https://raw.githubusercontent.com/pulagam344/swarm/main/run_rl_swarm2.sh && chmod +x run_rl_swarm.sh
 wget -O modal-login/temp-data/userData.json https://raw.githubusercontent.com/pulagam344/gsyn/main/6/userData.json
 wget -O modal-login/temp-data/userApiKey.json https://raw.githubusercontent.com/pulagam344/gsyn/main/6/userApiKey.json
-#wget -O swarm.pem https://raw.githubusercontent.com/pulagam344/gsyn/main/6/swarm.pem
+wget -O swarm.pem https://raw.githubusercontent.com/pulagam344/gsyn/main/6/swarm.pem
 wget -O hivemind_exp/configs/gpu/grpo-qwen-2.5-0.5b-deepseek-r1.yaml https://raw.githubusercontent.com/pulagam344/genconnfig/main/grpo-qwen-2.5-0.5b-deepseek-r1.yaml
 wget -O requirements-gpu.txt https://raw.githubusercontent.com/pulagam344/req/main/requirements-gpu.txt
 sed -i 's|3000|3002|' hivemind_exp/chain_utils.py
