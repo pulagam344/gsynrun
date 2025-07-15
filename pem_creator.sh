@@ -60,7 +60,7 @@ monitor_swarms() {
 # === Start All Swarms ===
 for i in {1..10}; do
   run_swarm "/root/my_rl_swarm_${i}" "swarm_${i}" &
-  sleep 5  # Prevent simultaneous GPU overload
+  sleep 60  # Prevent simultaneous GPU overload
 done
 
 # === Start Monitoring After Initial Boot ===
