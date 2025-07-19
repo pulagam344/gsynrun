@@ -10,11 +10,11 @@ pip install git+https://github.com/huggingface/trl.git@main
 pip install wandb==0.15.12
 export HYDRA_FULL_ERROR=1
 
-# pip install gensyn-genrl==0.1.4
-# pip install reasoning-gym>=0.1.20 # for reasoning gym env
-# pip install trl # for grpo config, will be deprecated soon
-# pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
-# pip install --upgrade protobuf==6.31.0
+pip install gensyn-genrl==0.1.4
+pip install reasoning-gym>=0.1.20 # for reasoning gym env
+pip install trl # for grpo config, will be deprecated soon
+pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
+pip install --upgrade protobuf==6.31.0
 
 # Part 1
 git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_61
