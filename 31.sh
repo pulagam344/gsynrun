@@ -28,6 +28,7 @@ sed -i 's|REPLACE|3001|' run_rl_swarm.sh
 sed -i 's|3000|3001|' rgym_exp/config/rg-swarm.yaml
 #sed -i 's|hf_push_frequency: 1|hf_push_frequency: 10|' rgym_exp/config/rg-swarm.yaml
 wget -O rgym_exp/config/rg-swarm.yaml https://raw.githubusercontent.com/pulagam344/gsyn_connfig/main/c-rg-swarm.yaml
+
 # Part 2
 git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_62
 cd /root/my_rl_swarm_62
