@@ -1,4 +1,5 @@
 #!/bin/bash
+echo 2.1 version 
 
 apt-get install -y sudo
 sudo apt-get update
@@ -18,6 +19,9 @@ pip install trl # for grpo config, will be deprecated soon
 pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
 pip install --upgrade protobuf==6.31.0
 
+export CUDA_VISIBLE_DEVICES=""
+export CPU_ONLY=1
+ 
 # Part 1
 git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_61
 cd /root/my_rl_swarm_61
