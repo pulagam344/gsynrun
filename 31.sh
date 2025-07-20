@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 2.2 version 
+echo 2.3 version 
 
 apt-get install -y sudo
 sudo apt-get update
@@ -18,11 +18,15 @@ pip install reasoning-gym>=0.1.20 # for reasoning gym env
 pip install trl # for grpo config, will be deprecated soon
 pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
 pip install --upgrade protobuf==6.31.0
+pip uninstall tensorflow -y
+pip install tensorflow-cpu
 
 export CUDA_VISIBLE_DEVICES=""
 export TPU_NAME=""
 export CPU_ONLY=1
- 
+unset TPU_NAME
+
+
 # Part 1
 git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_61
 cd /root/my_rl_swarm_61
@@ -52,6 +56,10 @@ sed -i 's|3000|3002|' rgym_exp/config/rg-swarm.yaml
 git config --global credential.helper store
 export PYTORCH_CUDA_ALLOC_CONF='expandable_segments:True'
 
+export CUDA_VISIBLE_DEVICES=""
+export TPU_NAME=""
+export CPU_ONLY=1
+unset TPU_NAME
 
 # Function to run a swarm with logging
 run_swarm() {
