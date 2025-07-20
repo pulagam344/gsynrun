@@ -20,6 +20,7 @@ pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de631
 pip install --upgrade protobuf==6.31.0
 
 export CUDA_VISIBLE_DEVICES=""
+export TPU_NAME=""
 export CPU_ONLY=1
  
 # Part 1
