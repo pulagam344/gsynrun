@@ -17,9 +17,9 @@ pip install gensyn-genrl==0.1.4
 pip install reasoning-gym>=0.1.20 # for reasoning gym env
 pip install trl # for grpo config, will be deprecated soon
 pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
-# pip install --upgrade protobuf==6.31.0
 pip uninstall tensorflow -y
 pip install tensorflow-cpu
+pip install --upgrade protobuf==6.31.0
 
 export CUDA_VISIBLE_DEVICES=""
 export TPU_NAME=""
