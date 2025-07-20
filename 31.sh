@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sudo apt-get update
 apt-get install -y sudo
+sudo apt-get update
 
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 sudo apt-get install -y nodejs
