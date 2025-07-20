@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 2.4 version 
+echo 2.5 version 
 
 apt-get install -y sudo
 sudo apt-get update
