@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 2.1 version 
+echo 2.2 version 
 
 apt-get install -y sudo
 sudo apt-get update
