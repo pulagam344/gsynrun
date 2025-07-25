@@ -1,11 +1,25 @@
 #!/bin/bash
 
-sudo apt-get update
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
+# Install NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+# Load NVM into the current shell session
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
+
+# Install and use Node.js v22
+nvm install 22
+nvm use 22
+nvm alias default 22
+
+# Show versions
 node -v
-sudo npm install -g yarn
+npm -v
+
+# Install Yarn globally
+npm install -g yarn
 yarn -v
+
 pip install git+https://github.com/huggingface/trl.git@main
 pip install wandb==0.15.12
 export HYDRA_FULL_ERROR=1
