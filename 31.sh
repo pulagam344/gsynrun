@@ -1,20 +1,27 @@
 #!/bin/bash
-
+echo 1
+apt-get install -y sudo
 sudo apt-get update
-curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-sudo apt-get install -y nodejs
-node -v
-sudo npm install -g yarn
-yarn -v
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
+nvm install 22
+nvm use 22
+nvm alias default 22
+npm install -g yarn
+
 pip install git+https://github.com/huggingface/trl.git@main
 pip install wandb==0.15.12
-export HYDRA_FULL_ERROR=1
-
 pip install gensyn-genrl==0.1.4
 pip install reasoning-gym>=0.1.20 # for reasoning gym env
 pip install trl # for grpo config, will be deprecated soon
 pip install hivemind@git+https://github.com/gensyn-ai/hivemind@639c964a8019de63135a2594663b5bec8e5356dd # We need the latest, 1.1.11 is broken
-pip install --upgrade protobuf==6.31.0
+pip install --upgrade protobuf==6.31.1
+
+export HYDRA_FULL_ERROR=1
+export PYTORCH_CUDA_ALLOC_CONF='expandable_segments:True'
+git config --global credential.helper store
 
 # Part 1
 git clone https://github.com/gensyn-ai/rl-swarm.git /root/my_rl_swarm_61
@@ -40,8 +47,6 @@ sed -i 's|REPLACE|3002|' run_rl_swarm.sh
 sed -i 's|3000|3002|' rgym_exp/config/rg-swarm.yaml
 sed -i 's|hf_push_frequency: 1|hf_push_frequency: 10|' rgym_exp/config/rg-swarm.yaml
 
-git config --global credential.helper store
-export PYTORCH_CUDA_ALLOC_CONF='expandable_segments:True'
 
 
 # Function to run a swarm with logging
@@ -81,7 +86,7 @@ monitor_swarms() {
 # Start both swarms
 export CUDA_VISIBLE_DEVICES=0
 run_swarm "/root/my_rl_swarm_61" 0 "swarm_61" &
-sleep 60
+sleep 120
 export CUDA_VISIBLE_DEVICES=1
 run_swarm "/root/my_rl_swarm_62" 1 "swarm_62" &
 
